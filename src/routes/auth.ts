@@ -71,7 +71,7 @@ router.post("/dev-login", async (req, res) => {
         data: {
           email,
           password: "", // No password stored for dev users (handled by hardcoded credentials)
-          role: devUser.role,
+          role: devUser.role as any,
         },
       });
 
@@ -92,7 +92,7 @@ router.post("/dev-login", async (req, res) => {
       if (user.role !== devUser.role) {
         user = await prisma.user.update({
           where: { id: user.id },
-          data: { role: devUser.role },
+          data: { role: devUser.role as any },
         });
       }
     }
